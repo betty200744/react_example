@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 
 class Simple extends Component {
@@ -117,30 +118,6 @@ class TodoApp extends Component {
   }
 }
 
-// class MarkdownEditor extends Component {
-//   constructor (props) {
-//     super(props);
-//     this.handleChange = this.handleChange.bind(this);
-//     this.state = {value: 'Hello **world**!'};
-//   }
-//
-//   handleChange (e) {
-//     this.setState({value: e.target.value})
-//   }
-//
-//   render () {
-//     return (
-//       <div className="MarkdownEditor">
-//         <h3>Input</h3>
-//         <label htmlFor="MarkdownEditor">Enter some markdown</label>
-//         <textarea id="markdown-content" onChange={this.handleChange} defaultValue={this.state.value}/>
-//         <h3>Output</h3>
-//         <div className="content" dangerouslySetInnerHTML={this.getRawMarkup()}/>
-//       </div>
-//     )
-//   }
-// }
-
 function NumberLists(props) {
   const numbers = props.numbers;
   const listItems = numbers.map((number, index) => <li key={index.toString()}> {number} </li>);
@@ -221,15 +198,28 @@ class MouseTracker extends Component {
 class App extends Component {
   render () {
     return (
-      <div>
-        <Simple name="betty" age="12"/>
-        <Stateful/>
-        <TodoApp/>
-        <Conditional isLoggedIn={false}/>
-        <NumberLists numbers = {[1, 2, 3]}/>
-        <NameForm/>
-        <MouseTracker/>
-      </div>
+      <Router>
+        <div>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/simple">Simple</Link></li>
+            <li><Link to="/stateful">Stateful</Link></li>
+            <li><Link to="todo">Todo App</Link></li>
+            <li><Link to="/conditional">Conditional</Link></li>
+            <li><Link to="numberlists">Number Lists</Link></li>
+            <li><Link to="nameform">Name Form</Link></li>
+            <li><Link to="mousetracker">MouseTracker</Link></li>
+          </ul>
+          <Route exact path="/" component={Simple}/>
+          <Route path="/simple" component={Simple}/>
+          <Route path="/stateful" component={Stateful}/>
+          <Route path="/todo" component={TodoApp}/>
+          <Route path="/conditional" component={Conditional}/>
+          <Route path="/numberlists" component={NumberLists}/>
+          <Route path="/nameform" component={NameForm}/>
+          <Route path="/mousetracker" component={MouseTracker}/>
+        </div>
+      </Router>
     )
   }
 }
